@@ -8,11 +8,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +54,8 @@ public class PecFormActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pec_form);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         final Spinner categorySpinner = (Spinner)findViewById(R.id.category_spinner);
         final EditText pecLabel = (EditText)findViewById(R.id.pec_label);
@@ -91,7 +96,7 @@ public class PecFormActivity extends Activity {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, ((Button) findViewById(R.id.btn_save_pec)).getId());
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, findViewById(R.id.btn_save_pec).getId());
 
             Button btnDelete = new Button(this);
 
@@ -136,20 +141,12 @@ public class PecFormActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                //final File file = new File(Environment.getExternalStorageDirectory().getName() + File.separatorChar + "tmp"+File.separatorChar+PecFormActivity.this.getPackageName()+File.separatorChar, "temp.jpg");
-
                 File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
                 try {
                     File file = File.createTempFile("temp", ".jpg", storageDir);
-                    //if (!file.exists()) {
-
-//                        file.mkdirs();
-  //                      file.createNewFile();
-    //                }
-
                     selectedImage = Uri.fromFile(file);
 
-                }catch (IOException e) {
+                } catch (IOException e) {
                     Toast.makeText(PecFormActivity.this, "Could not create temp file.", Toast.LENGTH_LONG)
                             .show();
                 }
@@ -161,10 +158,38 @@ public class PecFormActivity extends Activity {
 
                 final Intent chooserIntent = Intent.createChooser(galleryIntent, "Selecione origem da imagem");
 
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { captureIntent });
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{captureIntent});
                 startActivityForResult(chooserIntent, RESULT_LOAD_IMG);
+            }
+        });
 
-                //startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+        Button btnRotate = (Button)findViewById(R.id.btn_rotate);
+
+        btnRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(pecImage.getDrawable()!=null) {
+                    Bitmap myImg =((BitmapDrawable)pecImage.getDrawable()).getBitmap();
+
+
+                    if (myImg.getHeight() > myImg.getWidth()) {
+                        myImg = ImageUtils.crop(myImg, myImg.getWidth());
+                    }
+                    if (myImg.getHeight() < myImg.getWidth()) {
+                        myImg = ImageUtils.crop(myImg, myImg.getHeight());
+                    }
+
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(90);
+
+                    Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(),
+                            matrix, true);
+
+                    pecImage.setImageBitmap(rotated);
+                }else{
+                    Toast.makeText(PecFormActivity.this, "Escolha uma imagem primeiro!", Toast.LENGTH_LONG);
+                }
             }
         });
 
@@ -184,7 +209,7 @@ public class PecFormActivity extends Activity {
 
                 Bitmap bmp = pecImage.getDrawingCache();
 
-                OutputStream fOut = null;
+                OutputStream fOut;
 
                 try {
                     File file = new File(PecFormActivity.this.getFilesDir(), "pec_"+pec.getLabel().toLowerCase()+".png");
@@ -254,6 +279,8 @@ public class PecFormActivity extends Activity {
                 imgView.setImageResource(android.R.color.transparent);
 
                 imgView.setImageBitmap(bmp);
+
+
 
             } else {
                 Toast.makeText(this, "Você não escolheu nenhuma imagem.",

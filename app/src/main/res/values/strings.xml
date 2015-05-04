@@ -30,4 +30,5 @@
     <string name="title_pec_image">Imagem da PEC</string>
     <string name="btn_add_image">Alterar Imagem</string>
     <string name="pec_image_description">Imagem para criar a PEC</string>
+    <string name="btn_rotate">Rotacionar</string>
 </resources>
