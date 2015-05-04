@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:id="@+id/viewgroup">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_nova_categoria"
+        android:id="@+id/categoria_label"
+        style="@style/Base.TextAppearance.AppCompat.Headline" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/categoria_label"
+        android:id="@+id/categoria_nome"
+        android:text="@string/categoria_nome"
+        style="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/category_name"
+        android:layout_below="@+id/categoria_nome"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/color_pick"
+        android:layout_below="@+id/category_name"
+        android:id="@+id/textView"
+        style="@style/Base.TextAppearance.AppCompat.Subhead" />
+
+    <com.larswerkman.holocolorpicker.ColorPicker
+        android:id="@+id/color_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_save"
+        android:layout_below="@+id/color_picker"
+        android:id="@+id/btn_save" />
+</RelativeLayout>

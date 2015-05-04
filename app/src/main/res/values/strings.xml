@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">PECS</string>
+
+    <string name="action_settings">Configurações</string>
+    <string name="action_categories">Categorias...</string>
+    <string name="action_pecs">PECs...</string>
+
+    <string name="btn_basic">Nível 1 - Básico</string>
+    <string name="btn_intermediate">Nível 2 - Intermediário</string>
+    <string name="btn_advanced">Nível 3 - Avançado</string>
+    <string name="btn_quit">SAIR</string>
+    <string name="title_activity_basic">Nivel Básico</string>
+
+    <string name="title_nova_categoria">Nova Categoria</string>
+    <string name="categoria_nome">Nome da Categoria</string>
+    <string name="color_pick">Escolha uma cor para a categoria:</string>
+    <string name="title_activity_category_list">Categorias</string>
+    <string name="categorias_list">Categorias:</string>
+    <string name="btn_add_category">Nova Categoria</string>
+    <string name="btn_save">Salvar</string>
+    <string name="title_activity_category_form">Adicionar/Editar Categoria</string>
+    <string name="btn_delete">X</string>
+
+    <string name="title_activity_pec_list">PECs:</string>
+    <string name="pec_nome">PEC</string>
+    <string name="title_activity_pec_form">Nova PEC</string>
+    <string name="btn_add_pec">Nova PEC</string>
+    <string name="title_add_pec">Nova PEC</string>
+    <string name="title_pec_label">Rótulo da PEC</string>
+    <string name="title_pec_image">Imagem da PEC</string>
+    <string name="btn_add_image">Alterar Imagem</string>
+    <string name="pec_image_description">Imagem para criar a PEC</string>
+</resources>
