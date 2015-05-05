@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import br.com.herediadesign.pecs.backup.PecsBackupAgent;
 import br.com.herediadesign.pecs.db.contract.PecContract;
 import br.com.herediadesign.pecs.db.helper.PecsDbHelper;
 import br.com.herediadesign.pecs.model.Pec;
@@ -16,8 +17,12 @@ import br.com.herediadesign.pecs.model.Pec;
  */
 public class PecRepo {
     private PecsDbHelper dbHelper;
+    private PecsBackupAgent bkpAgent = new PecsBackupAgent();
+
+    Context ctx;
 
     public PecRepo(Context context){
+        this.ctx = context;
         dbHelper = new PecsDbHelper(context);
     }
 
@@ -31,6 +36,9 @@ public class PecRepo {
 
         long pecId = db.insert(PecContract.Pec.TABLE_NAME, null, values);
         db.close();
+
+        bkpAgent.requestBackup(this.ctx);
+
         return (int) pecId;
     }
 
@@ -39,6 +47,8 @@ public class PecRepo {
 
         db.delete(PecContract.Pec.TABLE_NAME, PecContract.Pec._ID + "= ?", new String[] {String.valueOf(pecId)});
         db.close();
+
+        bkpAgent.requestBackup(this.ctx);
     }
 
     public void update(Pec pec) {
@@ -49,8 +59,10 @@ public class PecRepo {
         values.put(PecContract.Pec.LABEL,pec.getLabel());
         values.put(PecContract.Pec.CATEGORY_ID, pec.getCategoryId());
 
-        db.update(PecContract.Pec.TABLE_NAME, values, PecContract.Pec._ID + "= ?", new String[] { String.valueOf(pec.getId()) });
+        db.update(PecContract.Pec.TABLE_NAME, values, PecContract.Pec._ID + "= ?", new String[]{String.valueOf(pec.getId()) });
         db.close();
+
+        bkpAgent.requestBackup(this.ctx);
     }
 
     public ArrayList<Pec> getPecList() {

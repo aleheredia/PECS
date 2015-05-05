@@ -10,7 +10,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:backupAgent="br.com.herediadesign.pecs.backup.PecsBackupAgent" >
+        <meta-data android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIk3nZ9kSv8GXN-6ndNmb0RR-fiPcQ5MJn-MI_tQ" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >

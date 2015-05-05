@@ -22,19 +22,18 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Categoria:"
         android:id="@+id/pec_categoria"
+        android:layout_marginTop="47dp"
         android:layout_below="@+id/pecs_label"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="21dp" />
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_toRightOf="@+id/pec_categoria"
-        android:layout_toEndOf="@+id/pec_categoria"
         android:layout_alignTop="@+id/pec_categoria"
-        android:layout_alignBottom="@+id/pec_categoria" />
+        android:layout_toRightOf="@+id/pec_categoria"
+        android:layout_toEndOf="@+id/pec_categoria" />
 
     <ListView
         android:layout_width="wrap_content"

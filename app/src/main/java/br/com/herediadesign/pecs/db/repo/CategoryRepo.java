@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import br.com.herediadesign.pecs.backup.PecsBackupAgent;
 import br.com.herediadesign.pecs.db.contract.CategoryContract;
 import br.com.herediadesign.pecs.db.contract.PecContract;
 import br.com.herediadesign.pecs.db.helper.PecsDbHelper;
@@ -18,8 +19,12 @@ import br.com.herediadesign.pecs.model.Pec;
  */
 public class CategoryRepo {
     private PecsDbHelper dbHelper;
+    private PecsBackupAgent bkpAgent = new PecsBackupAgent();
+
+    Context ctx;
 
     public CategoryRepo(Context context){
+        this.ctx = context;
         dbHelper = new PecsDbHelper(context);
     }
 
@@ -32,6 +37,9 @@ public class CategoryRepo {
 
         long cat_id = db.insert(CategoryContract.Category.TABLE_NAME, null, values);
         db.close();
+
+        bkpAgent.requestBackup(this.ctx);
+
         return (int) cat_id;
     }
 
@@ -40,6 +48,8 @@ public class CategoryRepo {
 
         db.delete(CategoryContract.Category.TABLE_NAME, CategoryContract.Category._ID + "= ?", new String[] {String.valueOf(cat_id)});
         db.close();
+
+        bkpAgent.requestBackup(this.ctx);
     }
 
     public void update(Category cat) {
@@ -51,6 +61,8 @@ public class CategoryRepo {
 
         db.update(CategoryContract.Category.TABLE_NAME, values, CategoryContract.Category._ID + "= ?", new String[]{String.valueOf(cat.getId())});
         db.close();
+
+        bkpAgent.requestBackup(this.ctx);
     }
 
     public ArrayList<Category> getCategoryList() {

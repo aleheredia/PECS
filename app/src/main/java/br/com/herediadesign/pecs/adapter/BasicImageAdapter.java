@@ -28,6 +28,7 @@ import br.com.herediadesign.pecs.util.ImageUtils;
  * Created by aheredia on 4/22/2015.
  */
 public class BasicImageAdapter extends BaseAdapter {
+    static final Object sDataLock = new Object();
     private Context mContext;
 
     private int cat;
@@ -53,24 +54,22 @@ public class BasicImageAdapter extends BaseAdapter {
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            //imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
             imageView.setScaleType(ImageView.ScaleType.CENTER);
             imageView.setPadding(8, 8, 8, 8);
         } else {
             imageView = (ImageView) convertView;
         }
 
-        //imageView.setImageResource(mThumbIds[position]);
-        //imageView.setImageResource(Integer.parseInt(this.getPecs(this.cat).get(position).getPath()));
         try{
             Pec pec = this.getPecs(this.cat).get(position);
 
             Bitmap pecBase = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.pec_base);
+            synchronized (sDataLock) {
+                File f = new File(mContext.getFilesDir(), "pec_" + pec.getLabel().toLowerCase() + ".png");
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
 
-            File f = new File(mContext.getFilesDir(), "pec_"+pec.getLabel().toLowerCase()+".png");
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-
-            imageView.setImageBitmap(ImageUtils.overlay(pecBase, b, pec.getLabel()));
+                imageView.setImageBitmap(ImageUtils.overlay(pecBase, b, pec.getLabel()));
+            }
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }

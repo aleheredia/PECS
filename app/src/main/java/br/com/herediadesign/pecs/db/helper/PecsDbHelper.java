@@ -22,8 +22,9 @@ import br.com.herediadesign.pecs.db.contract.PecContract;
  * Created by aheredia on 4/22/2015.
  */
 public class PecsDbHelper extends SQLiteOpenHelper {
+    public static final Object[] dbLock = new Object[0];
 
-    public static final int DATABASE_VERSION = 18;
+    public static final int DATABASE_VERSION = 23;
     public static final String DATABASE_NAME = "Pecs.db";
     private Context context;
 
@@ -124,9 +125,11 @@ public class PecsDbHelper extends SQLiteOpenHelper {
         FileOutputStream outputStream;
 
         try {
-            outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            outputStream.close();
+            synchronized (dbLock) {
+                outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                outputStream.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

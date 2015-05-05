@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import br.com.herediadesign.pecs.R;
 import br.com.herediadesign.pecs.activities.pec.PecFormActivity;
@@ -30,7 +31,7 @@ public class PecListAdapter extends ArrayAdapter<Object> {
     Context context;
     int resource;
     Object pecs[] = null;
-
+    public static final Object sDataLock = new Object();
 
     public PecListAdapter(Context context, int resource, Object[] pecs) {
         super(context, resource, pecs);
@@ -69,11 +70,12 @@ public class PecListAdapter extends ArrayAdapter<Object> {
 
         try{
             Bitmap pecBase = BitmapFactory.decodeResource(context.getResources(), R.drawable.pec_base);
+            synchronized (sDataLock) {
+                File f = new File(context.getFilesDir(), "pec_" + pec.getLabel().toLowerCase() + ".png");
+                Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
 
-            File f = new File(context.getFilesDir(), "pec_"+pec.getLabel().toLowerCase()+".png");
-            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-
-            imageView.setImageBitmap(ImageUtils.overlay(pecBase, b, pec.getLabel()));
+                imageView.setImageBitmap(ImageUtils.overlay(pecBase, b, pec.getLabel()));
+            }
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
