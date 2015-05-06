@@ -7,25 +7,13 @@
     tools:context="br.com.herediadesign.pecs.activities.category.CategoryListActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/categorias_list"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/btn_save"
-        style="@style/Base.TextAppearance.AppCompat.Headline" />
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/category_list"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2" />
+        android:layout_below="@+id/add_category" />
 
     <Button
         android:layout_width="wrap_content"

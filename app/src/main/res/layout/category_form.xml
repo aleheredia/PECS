@@ -6,14 +6,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_nova_categoria"
-        android:id="@+id/categoria_label"
-        style="@style/Base.TextAppearance.AppCompat.Headline" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/categoria_label"
         android:id="@+id/categoria_nome"
         android:text="@string/categoria_nome"
         style="@style/Base.TextAppearance.AppCompat.Subhead" />

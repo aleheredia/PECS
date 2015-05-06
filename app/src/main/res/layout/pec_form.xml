@@ -11,16 +11,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/title_add_pec"
-        android:id="@+id/title_add_pec"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/title_pec_label"
         android:id="@+id/title_label_pec"
@@ -54,7 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/category_spinner"
-        android:layout_below="@+id/title_add_pec"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="52dp" />
@@ -65,7 +54,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/categorias_list"
         android:id="@+id/title_category"
-        android:layout_below="@+id/title_add_pec"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="23dp" />
@@ -77,8 +65,6 @@
         android:layout_below="@+id/title_pec_image"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/title_add_pec"
-        android:layout_alignEnd="@+id/title_add_pec"
         android:contentDescription="@string/pec_image_description" />
 
     <Button

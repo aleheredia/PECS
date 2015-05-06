@@ -1,5 +1,6 @@
 package br.com.herediadesign.pecs.db.helper;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import br.com.herediadesign.pecs.R;
 import br.com.herediadesign.pecs.db.contract.CategoryContract;
+import br.com.herediadesign.pecs.db.repo.PecRepo;
 import br.com.herediadesign.pecs.model.Category;
 import br.com.herediadesign.pecs.model.Pec;
 import br.com.herediadesign.pecs.db.contract.PecContract;
@@ -19,7 +21,7 @@ import br.com.herediadesign.pecs.db.contract.PecContract;
 public class PecsDbHelper extends SQLiteOpenHelper {
     public static final Object[] dbLock = new Object[0];
 
-    public static final int DATABASE_VERSION = 23;
+    public static final int DATABASE_VERSION = 30;
     public static final String DATABASE_NAME = "Pecs.db";
     private Context context;
 
@@ -55,24 +57,21 @@ public class PecsDbHelper extends SQLiteOpenHelper {
 
     private void preloadPecs(List<Pec> pecs, SQLiteDatabase db){
         for(Pec pec : pecs) {
-            db.execSQL("INSERT INTO " + PecContract.Pec.TABLE_NAME + " (" +
-                    PecContract.Pec.PATH + "," +
-                    PecContract.Pec.LABEL + "," +
-                    PecContract.Pec.CATEGORY_ID + ") VALUES ('" +
-                    pec.getPath() + "','" + pec.getLabel() + "'," + pec.getCategoryId() + ")");
+            ContentValues values = new ContentValues();
+            values.put(PecContract.Pec.PATH, pec.getPath());
+            values.put(PecContract.Pec.LABEL, pec.getLabel());
+            values.put(PecContract.Pec.CATEGORY_ID, pec.getCategoryId());
+
+            db.insert(PecContract.Pec.TABLE_NAME, null, values);
         }
     }
 
     private List<Category> getCats() {
         List<Category> cats = new ArrayList<>();
 
-        cats.add(new Category(1, "Letras", "#72AACA"));
-        cats.add(new Category(2, "Cores", "#D6D8DD"));
-        cats.add(new Category(3, "Formas", "#F6F080"));
-        cats.add(new Category(4, "Atividades", "#B8D977"));
-        cats.add(new Category(5, "Comida", "#EE6D6D"));
-        cats.add(new Category(6, "Pessoas", "#DB7093"));
-        cats.add(new Category(7, "Comunicação", "#FFAA00"));
+        cats.add(new Category(1, "AVD", "#D6D8DD"));
+        cats.add(new Category(2, "Comida", "#DB7093"));
+        cats.add(new Category(3, "Pessoas", "#72AACA"));
 
         return cats;
     }
@@ -80,36 +79,29 @@ public class PecsDbHelper extends SQLiteOpenHelper {
     private List<Pec> getPecs(){
         List<Pec> pecs = new ArrayList<>();
 
-        // LETRAS
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_a, "pec_a.png"), "A", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_b, "pec_b.png"), "B", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_c, "pec_c.png"), "C", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_d, "pec_d.png"), "D", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_e, "pec_e.png"), "E", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_f, "pec_f.png"), "F", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_g, "pec_g.png"), "G", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_h, "pec_h.png"), "H", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_i, "pec_i.png"), "I", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_j, "pec_j.png"), "J", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_k, "pec_k.png"), "K", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_l, "pec_l.png"), "L", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_m, "pec_m.png"), "M", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_n, "pec_n.png"), "N", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_o, "pec_o.png"), "O", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_p, "pec_p.png"), "P", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_q, "pec_q.png"), "Q", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_r, "pec_r.png"), "R", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_s, "pec_s.png"), "S", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_t, "pec_t.png"), "T", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_u, "pec_u.png"), "U", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_v, "pec_v.png"), "V", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_w, "pec_w.png"), "W", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_x, "pec_x.png"), "X", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_y, "pec_y.png"), "Y", 1));
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_z, "pec_z.png"), "Z", 1));
+        // AVD
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_almoco, "pec_almoço.png"), "Almoço", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_brincar, "pec_brincar.png"), "Brincar", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_coco, "pec_cocô.png"), "Cocô", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_dentes, "pec_dentes.png"), "Dentes", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_dormir, "pec_dormir.png"), "Dormir", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_janta, "pec_janta.png"), "Janta", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_lavar_mao, "pec_lavar mão.png"), "Lavar Mão", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_tomar_banho, "pec_banho.png"), "Banho", 1));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_xixi, "pec_xixi.png"), "Xixi", 1));
 
-        // FORMAS
-        pecs.add(new Pec(this.storeImage(R.drawable.pec_bola, "pec_bola.png"), "BOLA", 3));
+        // Comida
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_agua, "pec_água.png"), "Água", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_banana, "pec_banana.png"), "Banana", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_danete, "pec_danete.png"), "Danete", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_gelatina, "pec_gelatina.png"), "Gelatina", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_iogurte, "pec_iogurte.png"), "Iogurte", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_laranja, "pec_laranja.png"), "Laranja", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_macarrao, "pec_macarrão.png"), "Macarrão", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_manga, "pec_manga.png"), "Manga", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_pipoca, "pec_pipoca.png"), "Pipoca", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_suco, "pec_suco.png"), "Suco", 2));
+        pecs.add(new Pec(this.storeImage(R.drawable.pec_tete, "pec_tetê.png"), "Tetê", 2));
 
         return pecs;
     }
