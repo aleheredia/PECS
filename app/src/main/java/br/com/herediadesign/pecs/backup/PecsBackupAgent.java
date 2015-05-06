@@ -12,9 +12,6 @@ import java.io.IOException;
 
 import br.com.herediadesign.pecs.db.helper.PecsDbHelper;
 
-/**
- * Created by aheredia on 5/5/2015.
- */
 public class PecsBackupAgent extends BackupAgentHelper {
 
     // A key to uniquely identify the set of backup data
@@ -22,12 +19,12 @@ public class PecsBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onCreate(){
-        FileBackupHelper dbFile = new FileBackupHelper(this, "../databases/" + PecsDbHelper.DATABASE_NAME);
-        addHelper(PecsDbHelper.DATABASE_NAME, dbFile);
-
         String[] files = getFilesDir().list();
         FileBackupHelper pecsFiles = new FileBackupHelper(this, files);
         addHelper(PECS_BACKUP_KEY, pecsFiles);
+
+        FileBackupHelper dbFile = new FileBackupHelper(this, "../databases/" + PecsDbHelper.DATABASE_NAME);
+        addHelper(PecsDbHelper.DATABASE_NAME, dbFile);
     }
 
     public void requestBackup(Context ctx) {

@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +22,6 @@ import br.com.herediadesign.pecs.model.Pec;
 
 public class PecListActivity extends Activity {
 
-    private Spinner catSpinner;
-
     private CategoryRepo cr = new CategoryRepo(this);
 
     private ArrayList<Category> categoryList = new ArrayList<>();
@@ -34,7 +31,7 @@ public class PecListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pec_list);
 
-        ArrayList<String> catsLabels = new ArrayList<String>();
+        ArrayList<String> catsLabels = new ArrayList<>();
 
         categoryList = cr.getCategoryList();
 
@@ -42,8 +39,8 @@ public class PecListActivity extends Activity {
             catsLabels.add(cat.getLabel());
         }
 
-        catSpinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> cats_adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, catsLabels);
+        Spinner catSpinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<String> cats_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, catsLabels);
         cats_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catSpinner.setAdapter(cats_adapter);
         catSpinner.setSelection(0);
@@ -59,11 +56,11 @@ public class PecListActivity extends Activity {
 
                 PecListAdapter pecListAdapter = new PecListAdapter(PecListActivity.this, R.layout.pec_list_item, pecs.toArray());
 
-                ListView pecList = (ListView)PecListActivity.this.findViewById(R.id.pec_lista);
+                ListView pecList = (ListView) PecListActivity.this.findViewById(R.id.pec_lista);
 
                 pecList.setAdapter(pecListAdapter);
 
-                Button btnAddPec = (Button)findViewById(R.id.btnAddPec);
+                Button btnAddPec = (Button) findViewById(R.id.btnAddPec);
                 btnAddPec.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

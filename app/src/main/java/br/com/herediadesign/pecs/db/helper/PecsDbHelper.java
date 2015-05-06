@@ -1,13 +1,11 @@
 package br.com.herediadesign.pecs.db.helper;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +16,6 @@ import br.com.herediadesign.pecs.model.Category;
 import br.com.herediadesign.pecs.model.Pec;
 import br.com.herediadesign.pecs.db.contract.PecContract;
 
-/**
- * Created by aheredia on 4/22/2015.
- */
 public class PecsDbHelper extends SQLiteOpenHelper {
     public static final Object[] dbLock = new Object[0];
 
