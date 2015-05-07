@@ -72,6 +72,7 @@ public class PecsDbHelper extends SQLiteOpenHelper {
         cats.add(new Category(1, "AVD", "#D6D8DD"));
         cats.add(new Category(2, "Comida", "#DB7093"));
         cats.add(new Category(3, "Pessoas", "#72AACA"));
+        cats.add(new Category(4, "Lugares", "#E6B800"));
 
         return cats;
     }
