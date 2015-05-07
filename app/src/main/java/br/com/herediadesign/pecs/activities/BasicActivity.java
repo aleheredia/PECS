@@ -63,11 +63,19 @@ public class BasicActivity extends ActionBarActivity {
             buttonsview.addView(this.addView(cat));
         }
 
-        this.createPecsGridView(1);
+        this.createPecsGridView(cats.get(0).getId());
     }
 
     public void createPecsGridView(int catId) {
         final GridView gridview = (GridView) findViewById(R.id.gridview_basic);
+
+        gridview.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         BasicImageAdapter bia = new BasicImageAdapter(this);
         bia.setCategory(catId);
@@ -265,6 +273,5 @@ public class BasicActivity extends ActionBarActivity {
 
         return btn;
     }
-
 
 }
