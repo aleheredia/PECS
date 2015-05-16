@@ -47,6 +47,7 @@
         <activity
             android:name=".activities.pec.PecFormActivity"
             android:theme="@android:style/Theme.Holo.DialogWhenLarge"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_pec_form">
         </activity>
     </application>
