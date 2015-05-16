@@ -78,7 +78,13 @@ public class PecFormActivity extends Activity {
 
             final Pec pec = pecRepo.getPecById(pecId);
 
-            categorySpinner.setSelection(pec.getCategoryId()-1); // TODO verificar isso!
+            int position = 0;
+            for(Category cat : categoryList){
+                if(pec.getCategoryId()==cat.getId())
+                    break;
+                position++;
+            }
+            categorySpinner.setSelection(position);
 
             pecLabel.setText(pec.getLabel());
             try {
@@ -169,8 +175,8 @@ public class PecFormActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                if(pecImage.getDrawable()!=null) {
-                    Bitmap myImg =((BitmapDrawable)pecImage.getDrawable()).getBitmap();
+                if (pecImage.getDrawable() != null) {
+                    Bitmap myImg = ((BitmapDrawable) pecImage.getDrawable()).getBitmap();
 
 
                     if (myImg.getHeight() > myImg.getWidth()) {
@@ -187,7 +193,7 @@ public class PecFormActivity extends Activity {
                             matrix, true);
 
                     pecImage.setImageBitmap(rotated);
-                }else{
+                } else {
                     Toast.makeText(PecFormActivity.this, "Escolha uma imagem primeiro!", Toast.LENGTH_LONG);
                 }
             }
