@@ -52,13 +52,25 @@ public class PecListActivity extends Activity {
 
                 PecRepo pr = new PecRepo(PecListActivity.this);
 
-                List<Pec> pecs = pr.getPecListByCategory(cat.getId());
+                final List<Pec> pecs = pr.getPecListByCategory(cat.getId());
 
                 PecListAdapter pecListAdapter = new PecListAdapter(PecListActivity.this, R.layout.pec_list_item, pecs.toArray());
 
                 ListView pecList = (ListView) PecListActivity.this.findViewById(R.id.pec_lista);
 
                 pecList.setAdapter(pecListAdapter);
+
+                // ao clicar em um item da listagem, ir para o formulário de alteração
+                pecList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent addCat = new Intent(PecListActivity.this, PecFormActivity.class);
+                        Bundle b = new Bundle();
+                        b.putInt("pecId", pecs.get(position).getId());
+                        addCat.putExtras(b);
+                        PecListActivity.this.startActivity(addCat);
+                    }
+                });
 
                 Button btnAddPec = (Button) findViewById(R.id.btnAddPec);
                 btnAddPec.setOnClickListener(new View.OnClickListener() {

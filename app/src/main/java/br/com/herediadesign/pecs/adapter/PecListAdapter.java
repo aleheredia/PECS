@@ -55,17 +55,6 @@ public class PecListAdapter extends ArrayAdapter<Object> {
         pecItem.setText(pec.getLabel());
         pecItem.setTag(pec.getId());
 
-        pecItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addCat = new Intent(PecListAdapter.this.context, PecFormActivity.class);
-                Bundle b = new Bundle();
-                b.putInt("pecId", (int) v.getTag());
-                addCat.putExtras(b);
-                PecListAdapter.this.context.startActivity(addCat);
-            }
-        });
-
         ImageView imageView = (ImageView) convertView.findViewById(R.id.pec_image);
 
         try{
