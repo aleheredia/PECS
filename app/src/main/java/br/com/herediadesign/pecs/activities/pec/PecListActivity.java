@@ -60,7 +60,6 @@ public class PecListActivity extends Activity {
 
                 pecList.setAdapter(pecListAdapter);
 
-                // ao clicar em um item da listagem, ir para o formulário de alteração
                 pecList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

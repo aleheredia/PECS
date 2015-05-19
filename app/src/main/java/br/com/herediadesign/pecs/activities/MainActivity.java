@@ -12,6 +12,8 @@ import android.widget.Button;
 import br.com.herediadesign.pecs.R;
 import br.com.herediadesign.pecs.activities.category.CategoryListActivity;
 import br.com.herediadesign.pecs.activities.pec.PecListActivity;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 
 public class MainActivity extends Activity {
@@ -19,6 +21,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         Button basicButton = (Button) findViewById(R.id.btn_basico);

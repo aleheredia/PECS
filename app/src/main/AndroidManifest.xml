@@ -50,6 +50,10 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_pec_form">
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e6c9246d705a8688c18ecf8455c5eeec939e609c" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
